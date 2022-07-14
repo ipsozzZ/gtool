@@ -5,20 +5,17 @@ import (
 )
 
 // IntersectMap 求交集
-func IntersectMap(aMap, bMap map[interface{}]interface{}) []interface{} {
-	var inSet []interface{}
+func IntersectMap(aMap, bMap map[interface{}]interface{}) (inSet []interface{}) {
 	for aKey, aValue := range aMap {
 		if _, ok := bMap[aKey]; ok {
 			inSet = append(inSet, aValue)
 		}
 	}
-
-	return inSet
+	return
 }
 
 // UnionMap 求并集
-func UnionMap(aMap, bMap map[interface{}]interface{}) []interface{} {
-	var retSet []interface{}
+func UnionMap(aMap, bMap map[interface{}]interface{}) (retSet []interface{}) {
 	for _, aValue := range aMap {
 		retSet = append(retSet, aValue)
 	}
@@ -27,7 +24,7 @@ func UnionMap(aMap, bMap map[interface{}]interface{}) []interface{} {
 			retSet = append(retSet, bValue)
 		}
 	}
-	return retSet
+	return
 }
 
 // SubMap 求差集
@@ -41,12 +38,12 @@ func SubMap(aMap, bMap map[interface{}]interface{}) (retSet []interface{}) {
 }
 
 // CompareMap 相同key，value不相同
-func CompareMap(oldMap, curMap map[interface{}]interface{}) (old, cur []interface{}) {
-	for oldKey, oldValue := range oldMap {
-		if curValue, ok := curMap[oldKey]; ok {
-			if !reflect.DeepEqual(curValue, oldValue) {
-				old = append(old, oldValue)
-				cur = append(cur, curValue)
+func CompareMap(aMap, bMap map[interface{}]interface{}) (a, b []interface{}) {
+	for aKey, aValue := range aMap {
+		if bValue, ok := bMap[aKey]; ok {
+			if !reflect.DeepEqual(bValue, aValue) {
+				a = append(a, aValue)
+				b = append(b, bValue)
 			}
 		}
 	}
